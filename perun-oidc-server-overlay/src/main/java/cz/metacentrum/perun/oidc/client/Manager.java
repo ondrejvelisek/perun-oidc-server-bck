@@ -75,6 +75,8 @@ public abstract class Manager {
 
     private String getAuthorizationHeader() {
         String toEncode = PerunUtils.getProperty("oidc.perun.username") + ":" + PerunUtils.getProperty("oidc.perun.password");
+
+        System.out.println("AuthorizationHeader: "+"Basic " + Base64.encodeBase64(toEncode.getBytes()).toString());
         return "Basic " + Base64.encodeBase64(toEncode.getBytes()).toString();
     }
 

@@ -33,8 +33,6 @@ public class PerunUtils {
 
 	private static final String PROPERTIES_FILE = "/etc/perun/perun-oidc-server.properties";
 
-	private static final Logger logger = LoggerFactory.getLogger(PerunUtils.class);
-
 	/**
 	 * Gets particular property from perun.properties file.
 	 *
@@ -49,10 +47,13 @@ public class PerunUtils {
 		// Load properties file with configuration
 		Properties properties = new Properties();
 		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(PROPERTIES_FILE))) {
+			System.out.println("Reading file");
 			properties.load(bis);
 		} catch (FileNotFoundException e) {
+			System.out.println("Cannot find "+PROPERTIES_FILE+" file");
 			throw new IllegalArgumentException("Cannot find "+PROPERTIES_FILE+" file", e);
 		} catch (IOException e) {
+			System.out.println("Cannot read "+PROPERTIES_FILE+" file");
 			throw new RuntimeException("Cannot read "+PROPERTIES_FILE+" file", e);
 		}
 
@@ -60,6 +61,7 @@ public class PerunUtils {
 		if (property == null) {
 			throw new RuntimeException("Property " + propertyName + " cannot be found in the configuration file");
 		}
+		System.out.println("Property: "+property);
 		return property;
 	}
 
@@ -92,7 +94,7 @@ public class PerunUtils {
 			sb.append(attrName+" - "+req.getAttribute(attrName));
 		}
 
-		logger.info(sb.toString());
+		System.out.println(sb.toString());
 
 		String extSourceLoaString = null;
 		String extLogin = null;
