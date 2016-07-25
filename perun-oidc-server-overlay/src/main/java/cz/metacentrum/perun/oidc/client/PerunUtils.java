@@ -182,7 +182,11 @@ public class PerunUtils {
 		}
 
 		if (extLogin == null || extSourceName == null) {
-			throw new IllegalStateException("ExtSource name or userExtSourceLogin is null");
+			throw new IllegalStateException("ExtSource name or userExtSourceLogin is null. " +
+					"extSourceName: "+extSourceName+", " +
+					"extLogin: "+extLogin+", " +
+					"extSourceLoa: "+extSourceLoa+", " +
+					"extSourceType: "+extSourceType);
 		}
 
 
