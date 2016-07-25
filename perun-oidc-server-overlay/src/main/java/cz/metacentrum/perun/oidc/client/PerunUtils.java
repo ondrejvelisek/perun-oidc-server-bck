@@ -2,6 +2,9 @@ package cz.metacentrum.perun.oidc.client;
 
 import cz.metacentrum.perun.oidc.client.PerunPrincipal;
 import cz.metacentrum.perun.oidc.client.ExtSourcesManager;
+import org.mitre.util.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedInputStream;
@@ -30,6 +33,7 @@ public class PerunUtils {
 
 	private static final String PROPERTIES_FILE = "/etc/perun/perun-oidc-server.properties";
 
+	private static final Logger logger = LoggerFactory.getLogger(PerunUtils.class);
 
 	/**
 	 * Gets particular property from perun.properties file.
@@ -61,6 +65,35 @@ public class PerunUtils {
 
 
 	public static PerunPrincipal parsePrincipal(HttpServletRequest req) {
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("   HEADERS   ");
+
+		Enumeration headerNms = req.getHeaderNames();
+		while(headerNms.hasMoreElements()) {
+			String headerName = (String)headerNms.nextElement();
+			sb.append(headerName + " - " + req.getHeader(headerName));
+		}
+
+		sb.append("   PARAMS   ");
+
+		Enumeration params = req.getParameterNames();
+		while(params.hasMoreElements()){
+			String paramName = (String)params.nextElement();
+			sb.append(paramName+" - "+req.getParameter(paramName));
+		}
+
+		sb.append("   ATTRS   ");
+
+		Enumeration attrs = req.getAttributeNames();
+		while(attrs.hasMoreElements()){
+			String attrName = (String)attrs.nextElement();
+			sb.append(attrName+" - "+req.getAttribute(attrName));
+		}
+
+		logger.info(sb.toString());
+
 		String extSourceLoaString = null;
 		String extLogin = null;
 		String extSourceName = null;
