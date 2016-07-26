@@ -44,7 +44,6 @@ public class PerunIntrospectionResultAssembler extends DefaultIntrospectionResul
 		Map<String, Object> result = super.assembleFrom(accessToken, userInfo, authScopes);
 
 		result.putAll(accessToken.getAuthenticationHolder().getExtensions());
-		System.out.println("PerunIntrospectionResultAssembler.assembleFrom: "+result);
 
 		return result;
 	}
@@ -54,7 +53,6 @@ public class PerunIntrospectionResultAssembler extends DefaultIntrospectionResul
 		Map<String, Object> result = super.assembleFrom(refreshToken, userInfo, authScopes);
 
 		result.putAll(refreshToken.getAuthenticationHolder().getExtensions());
-		System.out.println("PerunIntrospectionResultAssembler.assembleFrom(Refresh): "+result);
 
 		return result;
 	}

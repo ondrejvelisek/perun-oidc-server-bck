@@ -33,8 +33,6 @@ public class PerunUserDetailsService implements AuthenticationUserDetailsService
 	public UserDetails loadUserDetails(PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken) throws UsernameNotFoundException {
 		Object userId = preAuthenticatedAuthenticationToken.getPrincipal();
 
-		System.out.println("PerunUserDetailsService.loadUserDetails: "+preAuthenticatedAuthenticationToken+ " - "+userId);
-
 		if (userId == null) {
 			throw new UsernameNotFoundException("Users id is " + userId);
 		}

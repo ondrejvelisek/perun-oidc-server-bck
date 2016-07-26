@@ -47,13 +47,10 @@ public class PerunUtils {
 		// Load properties file with configuration
 		Properties properties = new Properties();
 		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(PROPERTIES_FILE))) {
-			System.out.println("Reading file");
 			properties.load(bis);
 		} catch (FileNotFoundException e) {
-			System.out.println("Cannot find "+PROPERTIES_FILE+" file");
 			throw new IllegalArgumentException("Cannot find "+PROPERTIES_FILE+" file", e);
 		} catch (IOException e) {
-			System.out.println("Cannot read "+PROPERTIES_FILE+" file");
 			throw new RuntimeException("Cannot read "+PROPERTIES_FILE+" file", e);
 		}
 
@@ -61,40 +58,11 @@ public class PerunUtils {
 		if (property == null) {
 			throw new RuntimeException("Property " + propertyName + " cannot be found in the configuration file");
 		}
-		System.out.println("Property: "+property);
 		return property;
 	}
 
 
 	public static PerunPrincipal parsePrincipal(HttpServletRequest req) {
-
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("   HEADERS   ");
-
-		Enumeration headerNms = req.getHeaderNames();
-		while(headerNms.hasMoreElements()) {
-			String headerName = (String)headerNms.nextElement();
-			sb.append(headerName + " - " + req.getHeader(headerName));
-		}
-
-		sb.append("   PARAMS   ");
-
-		Enumeration params = req.getParameterNames();
-		while(params.hasMoreElements()){
-			String paramName = (String)params.nextElement();
-			sb.append(paramName+" - "+req.getParameter(paramName));
-		}
-
-		sb.append("   ATTRS   ");
-
-		Enumeration attrs = req.getAttributeNames();
-		while(attrs.hasMoreElements()){
-			String attrName = (String)attrs.nextElement();
-			sb.append(attrName+" - "+req.getAttribute(attrName));
-		}
-
-		System.out.println(sb.toString());
 
 		String extSourceLoaString = null;
 		String extLogin = null;

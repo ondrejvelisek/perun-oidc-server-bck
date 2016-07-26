@@ -14,7 +14,6 @@ public class PerunUserInfoRepository implements UserInfoRepository {
 
 	@Override
 	public UserInfo getByUsername(String s) {
-		System.out.println("getByUsername: " + s);
 
 		if (!s.matches("^-?\\d+$")) {
 			// bug fix. Sometimes Mitre calls this method with client id. Return null if string is not integer.

@@ -22,7 +22,6 @@ public class PerunAuthenticationDetailSource implements AuthenticationDetailsSou
 		details.put("userExtSourceLogin", pp.getUserExtSourceLogin());
 		details.put("extSourceType", pp.getExtSourceType());
 		details.put("extSourceLoa", String.valueOf(pp.getExtSourceLoa()));
-		System.out.println("PerunAuthenticationDetailSource.buildDetails: "+details);
 		return details;
 	}
 

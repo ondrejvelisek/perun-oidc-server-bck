@@ -40,8 +40,6 @@ public abstract class Manager {
 
         URL resourceURL = new URL(PerunUtils.getProperty("oidc.perun.url")+getManagerName()+"/"+method+"?"+queryString(params));
 
-        System.out.println("URL: "+resourceURL);
-
         HttpURLConnection conn = (HttpURLConnection) resourceURL.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Authorization", getAuthorizationHeader());
@@ -76,7 +74,6 @@ public abstract class Manager {
     private String getAuthorizationHeader() {
         String toEncode = PerunUtils.getProperty("oidc.perun.username") + ":" + PerunUtils.getProperty("oidc.perun.password");
 
-        System.out.println("AuthorizationHeader: "+"Basic " + new String(Base64.encodeBase64(toEncode.getBytes())));
         return "Basic " + new String(Base64.encodeBase64(toEncode.getBytes()));
     }
 
