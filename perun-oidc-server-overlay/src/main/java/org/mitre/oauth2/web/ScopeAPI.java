@@ -73,14 +73,6 @@ public class ScopeAPI {
 		System.out.println("getUserPrincipal.getName: "+req.getUserPrincipal().getName());
 		System.out.println("getSession.getId: "+req.getSession().getId());
 
-		System.out.println("get : "+req.getRemoteUser());
-		System.out.println("getAuthType: "+req.getAuthType());
-		System.out.println("getUserPrincipal: "+req.getUserPrincipal());
-		System.out.println("getUserPrincipal.getName: "+req.getUserPrincipal().getName());
-		System.out.println("getSession.getId: "+req.getSession().getId());
-
-
-
 		Set<SystemScope> allScopes = scopeService.getAll();
 
 		m.put(JsonEntityView.ENTITY, allScopes);
