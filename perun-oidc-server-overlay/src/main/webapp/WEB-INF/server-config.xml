@@ -30,19 +30,19 @@
     <bean id="configBean" class="org.mitre.openid.connect.config.ConfigurationPropertiesBean">
 
         <!-- This property sets the root URL of the server, known as the issuer -->
-        <property name="issuer" value="https://perun-dev.meta.zcu.cz/fed/oidc/" />
+        <property name="issuer" value="http://localhost/fed/oidc/" />
 
         <!-- This property is a URL pointing to a logo image 24px high to be used in the top bar -->
         <property name="logoImageUrl" value="resources/images/perun_24px.png" />
 
         <!-- This property sets the display name of the server, displayed in the topbar and page title -->
-        <property name="topbarTitle" value="Perun OpenID Connect Server" />
+        <property name="topbarTitle" value="Perun OIDC" />
 
         <!-- This property sets the lifetime of registration access tokens, in seconds. Leave it unset (null) for no rotation. -->
         <!-- <property name="regTokenLifeTime" value="172800" /> -->
 
         <!-- This property forces the issuer value to start with "https", recommended on production servers -->
-        <property name="forceHttps" value="true" />
+        <property name="forceHttps" value="false" />
 
         <!-- This property sets the locale for server text -->
         <!-- <property name="locale" value="sv" /> -->

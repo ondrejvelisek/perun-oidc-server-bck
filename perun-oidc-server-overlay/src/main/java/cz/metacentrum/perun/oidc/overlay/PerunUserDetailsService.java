@@ -31,6 +31,7 @@ public class PerunUserDetailsService implements AuthenticationUserDetailsService
 
 	@Override
 	public UserDetails loadUserDetails(PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken) throws UsernameNotFoundException {
+
 		Object userId = preAuthenticatedAuthenticationToken.getPrincipal();
 
 		if (userId == null) {

@@ -23,15 +23,28 @@
 
     <!-- Use the following to set up the OIC tables in the in-memory DB
            If you are using a file based HSQLDB you should not run this every time. -->
-<!--    <jdbc:initialize-database data-source="dataSource">
-        <jdbc:script location="classpath:/db/tables/psql_database_tables.sql"/>
+    <jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="classpath:/db/tables/hsql_database_tables.sql"/>
         <jdbc:script location="classpath:/db/tables/security-schema.sql"/>
         <jdbc:script location="classpath:/db/tables/loading_temp_tables.sql"/>
-        <jdbc:script location="classpath:/db/users.sql"/>
+<!--        <jdbc:script location="classpath:/db/users.sql"/>
         <jdbc:script location="classpath:/db/clients.sql"/>
-        <jdbc:script location="classpath:/db/scopes.sql"/>
-    </jdbc:initialize-database>-->
+        <jdbc:script location="classpath:/db/scopes.sql"/>-->
+    </jdbc:initialize-database>
 
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+        <property name="jdbcUrl" value="jdbc:hsqldb:mem:oic;sql.syntax_mys=true" />
+        <property name="username" value="oic" />
+        <property name="password" value="oic" />
+    </bean>
+
+    <bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+        <property name="databasePlatform" value="org.eclipse.persistence.platform.database.HSQLPlatform" />
+        <property name="showSql" value="true" />
+    </bean>
+    <!--
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver" />
         <property name="jdbcUrl" value="jdbc:postgresql://localhost/oic" />
@@ -43,5 +56,5 @@
         <property name="databasePlatform" value="org.eclipse.persistence.platform.database.PostgreSQLPlatform" />
         <property name="showSql" value="true" />
     </bean>
-
+-->
 </beans>

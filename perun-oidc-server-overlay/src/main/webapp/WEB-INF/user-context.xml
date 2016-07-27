@@ -35,14 +35,14 @@
 	<bean id="perunAuthenticationFilter"
 		  class="cz.metacentrum.perun.oidc.overlay.PerunAuthenticationFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
-		<property name="authenticationDetailsSource" ref="authenticationDetailsSource" />
+		<!--<property name="authenticationDetailsSource" ref="authenticationDetailsSource" />-->
 	</bean>
 
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider ref="preauthAuthProvider" />
 	</security:authentication-manager>
 
-	<bean id="authenticationDetailsSource" class="cz.metacentrum.perun.oidc.overlay.PerunAuthenticationDetailSource" />
+	<!--<bean id="authenticationDetailsSource" class="cz.metacentrum.perun.oidc.overlay.PerunAuthenticationDetailSource" />-->
 
 	<bean id="preauthAuthProvider"
 		  class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
@@ -53,8 +53,8 @@
 
 	<bean id="defaultUserInfoRepository" class="cz.metacentrum.perun.oidc.overlay.PerunUserInfoRepository" primary="true"/>
 
-	<bean id="defaultOAuth2AuthorizationCodeService" class="cz.metacentrum.perun.oidc.overlay.PerunAuthorizationCodeService" primary="true" />
+<!--	<bean id="defaultOAuth2AuthorizationCodeService" class="cz.metacentrum.perun.oidc.overlay.PerunAuthorizationCodeService" primary="true" />
 
-	<bean id="defaultIntrospectionResultAssembler" class="cz.metacentrum.perun.oidc.overlay.PerunIntrospectionResultAssembler" primary="true" />
+	<bean id="defaultIntrospectionResultAssembler" class="cz.metacentrum.perun.oidc.overlay.PerunIntrospectionResultAssembler" primary="true" />-->
 
 </beans>

@@ -4,6 +4,7 @@ import cz.metacentrum.perun.oidc.client.PerunPrincipal;
 import cz.metacentrum.perun.oidc.client.PerunUtils;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.Map;
 /**
  * @author Ondrej Velisek <ondrejvelisek@gmail.com>
  */
-public class PerunAuthenticationDetailSource implements AuthenticationDetailsSource<HttpServletRequest, PerunWebAuthenticationDetails> {
+public class PerunAuthenticationDetailSource extends WebAuthenticationDetailsSource {
 
 	@Override
 	public PerunWebAuthenticationDetails buildDetails(HttpServletRequest context) {

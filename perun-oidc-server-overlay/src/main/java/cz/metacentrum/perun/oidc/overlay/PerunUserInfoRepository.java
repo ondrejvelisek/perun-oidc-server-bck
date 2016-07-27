@@ -16,6 +16,7 @@ public class PerunUserInfoRepository implements UserInfoRepository {
 	public UserInfo getByUsername(String s) {
 
 		if (!s.matches("^-?\\d+$")) {
+			System.out.println("PerunUserInfoRepository.getByUsername('"+s+"')   Username was considered as a number.");
 			// bug fix. Sometimes Mitre calls this method with client id. Return null if string is not integer.
 			return null;
 		}
