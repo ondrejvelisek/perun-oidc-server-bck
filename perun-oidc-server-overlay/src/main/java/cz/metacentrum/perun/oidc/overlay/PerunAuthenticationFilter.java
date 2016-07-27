@@ -20,6 +20,8 @@ public class PerunAuthenticationFilter extends AbstractPreAuthenticatedProcessin
 
 		//User user = UsersManager.getInstance().getUserByExtSourceNameAndExtLogin(pp.getExtSourceName(), pp.getUserExtSourceLogin());
 
+		System.out.println("PerunAuthenticationFilter.getPreAuthenticatedPrincipal.pp.getUserExtSourceLogin: "+pp.getUserExtSourceLogin());
+
 		return pp.getUserExtSourceLogin();//user.getId();
 	}
 
