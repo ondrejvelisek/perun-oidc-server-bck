@@ -44,21 +44,21 @@
 	<bean id="perunAuthenticationFilter"
 		  class="cz.metacentrum.perun.oidc.overlay.PerunAuthenticationFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
-		<!--<property name="authenticationDetailsSource" ref="authenticationDetailsSource" />-->
+		<property name="authenticationDetailsSource" ref="authenticationDetailsSource" />
 	</bean>
 
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider ref="preauthAuthProvider" />
 	</security:authentication-manager>
 
-	<!--<bean id="authenticationDetailsSource" class="cz.metacentrum.perun.oidc.overlay.PerunAuthenticationDetailSource" />-->
+	<bean id="authenticationDetailsSource" class="cz.metacentrum.perun.oidc.overlay.PerunAuthenticationDetailSource" />
 
 	<bean id="preauthAuthProvider"
 		  class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
 		<property name="preAuthenticatedUserDetailsService" ref="userDetailsService"/>
 	</bean>
 
-	<bean id="userDetailsService" class="cz.metacentrum.perun.oidc.overlay.PerunUserDetailsService"/>
+	<bean id="userDetailsService" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService"/>
 
 	<bean id="defaultUserInfoRepository" class="cz.metacentrum.perun.oidc.overlay.PerunUserInfoRepository" primary="true"/>
 
