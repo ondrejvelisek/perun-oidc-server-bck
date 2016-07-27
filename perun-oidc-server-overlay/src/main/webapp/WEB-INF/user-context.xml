@@ -28,20 +28,21 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
 	<security:http auto-config="false" use-expressions="true" entry-point-ref="http403EntryPoint" >
-		<security:intercept-url pattern="/authorize" access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/**" access="permitAll" />
+		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 		<security:custom-filter ref="perunAuthenticationFilter" position="PRE_AUTH_FILTER" />
-		<security:anonymous />
 	</security:http>
 
 	<bean id="perunAuthenticationFilter"
 		  class="cz.metacentrum.perun.oidc.overlay.PerunAuthenticationFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="authenticationDetailsSource" ref="authenticationDetailsSource" />
 	</bean>
 
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider ref="preauthAuthProvider" />
 	</security:authentication-manager>
+
+	<bean id="authenticationDetailsSource" class="cz.metacentrum.perun.oidc.overlay.PerunAuthenticationDetailSource" />
 
 	<bean id="preauthAuthProvider"
 		  class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">

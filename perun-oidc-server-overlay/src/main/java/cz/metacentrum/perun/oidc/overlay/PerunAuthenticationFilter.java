@@ -14,10 +14,6 @@ import java.util.Map;
  */
 public class PerunAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter {
 
-	public PerunAuthenticationFilter() {
-		setAuthenticationDetailsSource(new PerunAuthenticationDetailSource());
-	}
-
 	@Override
 	protected Object getPreAuthenticatedPrincipal(HttpServletRequest httpServletRequest) {
 		PerunPrincipal pp = PerunUtils.parsePrincipal(httpServletRequest);

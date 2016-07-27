@@ -39,7 +39,8 @@ public class PerunAuthorizationCodeService extends RandomValueAuthorizationCodeS
 		// attach the authorization so that we can look it up later
 		AuthenticationHolderEntity authHolder = new AuthenticationHolderEntity();
 		authHolder.setAuthentication(authentication);
-		authHolder.setExtensions((Map<String, Serializable>) authentication.getUserAuthentication().getDetails());
+		PerunWebAuthenticationDetails details = (PerunWebAuthenticationDetails) authentication.getUserAuthentication().getDetails();
+		authHolder.setExtensions(details.getAdditionalInfo());
 
 		authHolder = authenticationHolderRepository.save(authHolder);
 

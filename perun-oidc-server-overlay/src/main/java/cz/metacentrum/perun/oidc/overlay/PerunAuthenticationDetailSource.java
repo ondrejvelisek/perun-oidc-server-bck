@@ -3,6 +3,7 @@ package cz.metacentrum.perun.oidc.overlay;
 import cz.metacentrum.perun.oidc.client.PerunPrincipal;
 import cz.metacentrum.perun.oidc.client.PerunUtils;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -12,16 +13,22 @@ import java.util.Map;
 /**
  * @author Ondrej Velisek <ondrejvelisek@gmail.com>
  */
-public class PerunAuthenticationDetailSource implements AuthenticationDetailsSource<HttpServletRequest, Map<String, Serializable>> {
+public class PerunAuthenticationDetailSource implements AuthenticationDetailsSource<HttpServletRequest, PerunWebAuthenticationDetails> {
 
 	@Override
-	public Map<String, Serializable> buildDetails(HttpServletRequest context) {
+	public PerunWebAuthenticationDetails buildDetails(HttpServletRequest context) {
+
+		PerunWebAuthenticationDetails details = new PerunWebAuthenticationDetails(context);
+
 		PerunPrincipal pp = PerunUtils.parsePrincipal(context);
-		Map<String, Serializable> details = new HashMap<>();
-		details.put("extSourceName", pp.getExtSourceName());
-		details.put("userExtSourceLogin", pp.getUserExtSourceLogin());
-		details.put("extSourceType", pp.getExtSourceType());
-		details.put("extSourceLoa", String.valueOf(pp.getExtSourceLoa()));
+		Map<String, Serializable> additionalInfo = new HashMap<>();
+		additionalInfo.put("extSourceName", pp.getExtSourceName());
+		additionalInfo.put("userExtSourceLogin", pp.getUserExtSourceLogin());
+		additionalInfo.put("extSourceType", pp.getExtSourceType());
+		additionalInfo.put("extSourceLoa", String.valueOf(pp.getExtSourceLoa()));
+
+		details.setAdditionalInfo(additionalInfo);
+
 		return details;
 	}
 

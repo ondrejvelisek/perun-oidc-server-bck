@@ -29,7 +29,6 @@ public class PerunUserInfoRepository implements UserInfoRepository {
 		ui.setGivenName(user.getFirstName());
 		ui.setMiddleName(user.getMiddleName());
 		ui.setFamilyName(user.getLastName());
-		ui.setNickname(user.getDisplayName());
 
 		return ui;
 	}
