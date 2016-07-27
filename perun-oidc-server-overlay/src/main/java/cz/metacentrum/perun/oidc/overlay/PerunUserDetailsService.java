@@ -40,6 +40,7 @@ public class PerunUserDetailsService implements AuthenticationUserDetailsService
 
 		Collection<GrantedAuthority> gas = new ArrayList<>();
 		gas.add(new SimpleGrantedAuthority("ROLE_USER"));
+		gas.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
 		List<String> userIds = Arrays.asList(PerunUtils.getProperty("oidc.admins").split(","));
 		if (userIds.contains(userId.toString())) {

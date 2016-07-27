@@ -15,9 +15,9 @@ public class PerunUserInfoRepository implements UserInfoRepository {
 	@Override
 	public UserInfo getByUsername(String s) {
 
-		if (!s.matches("^-?\\d+$")) {
-			System.out.println("PerunUserInfoRepository.getByUsername('"+s+"')   Username was considered as a number.");
+/*		if (!s.matches("^-?\\d+$")) {
 			// bug fix. Sometimes Mitre calls this method with client id. Return null if string is not integer.
+			System.out.println("PerunUserInfoRepository.getByUsername('"+s+"')   Username was considered as a number.");
 			return null;
 		}
 
@@ -29,7 +29,11 @@ public class PerunUserInfoRepository implements UserInfoRepository {
 		ui.setName(user.getDisplayName());
 		ui.setGivenName(user.getFirstName());
 		ui.setMiddleName(user.getMiddleName());
-		ui.setFamilyName(user.getLastName());
+		ui.setFamilyName(user.getLastName());*/
+
+		UserInfo ui = new DefaultUserInfo();
+		ui.setSub(String.valueOf(s));
+		ui.setName("Tonda Voprsalek");
 
 		return ui;
 	}
