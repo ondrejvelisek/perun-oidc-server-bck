@@ -28,10 +28,10 @@
 
 	<!-- Application Loggers -->
 	<logger name="org.mitre.openid">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	<logger name="org.mitre.oauth2">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	<logger name="org.mitre.discovery">
 		<level value="info" />
@@ -63,16 +63,16 @@
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 
 	<logger name="org.springframework.security">
-		<level value="warn" />
+		<level value="debug" />
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
 	</root>
 
