@@ -29,7 +29,6 @@
 
 
 <!-- Empty: Override this file in your local project to change configuration options. -->
-	<context:component-scan annotation-config="true" base-package="cz.metacentrum.perun.oidc.client" />
-	<context:component-scan annotation-config="true" base-package="cz.metacentrum.perun.oidc.overlay" />
+	<context:component-scan annotation-config="true" base-package="cz.metacentrum.perun.oidc" />
 
 </beans>

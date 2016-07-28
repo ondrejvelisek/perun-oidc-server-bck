@@ -1,6 +1,6 @@
 package cz.metacentrum.perun.oidc.overlay;
 
-import cz.metacentrum.perun.oidc.client.User;
+import cz.metacentrum.perun.oidc.client.PerunUser;
 import cz.metacentrum.perun.oidc.client.UsersManager;
 import org.mitre.openid.connect.model.DefaultUserInfo;
 import org.mitre.openid.connect.model.UserInfo;
@@ -15,25 +15,20 @@ public class PerunUserInfoRepository implements UserInfoRepository {
 	@Override
 	public UserInfo getByUsername(String s) {
 
-/*		if (!s.matches("^-?\\d+$")) {
+		if (!s.matches("^-?\\d+$")) {
 			// bug fix. Sometimes Mitre calls this method with client id. Return null if string is not integer.
-			System.out.println("PerunUserInfoRepository.getByUsername('"+s+"')   Username was considered as a number.");
 			return null;
 		}
 
 		// TODO can be cached (performance)
-		User user = UsersManager.getInstance().getUserById(Integer.valueOf(s));
+		PerunUser user = UsersManager.getInstance().getUserById(Integer.valueOf(s));
 
 		UserInfo ui = new DefaultUserInfo();
 		ui.setSub(String.valueOf(user.getId()));
 		ui.setName(user.getDisplayName());
 		ui.setGivenName(user.getFirstName());
 		ui.setMiddleName(user.getMiddleName());
-		ui.setFamilyName(user.getLastName());*/
-
-		UserInfo ui = new DefaultUserInfo();
-		ui.setSub(String.valueOf(s));
-		ui.setName("Tonda Voprsalek");
+		ui.setFamilyName(user.getLastName());
 
 		return ui;
 	}

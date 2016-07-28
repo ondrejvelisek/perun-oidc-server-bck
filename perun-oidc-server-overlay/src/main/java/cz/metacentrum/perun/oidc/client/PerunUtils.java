@@ -1,17 +1,9 @@
 package cz.metacentrum.perun.oidc.client;
-
-import cz.metacentrum.perun.oidc.client.PerunPrincipal;
-import cz.metacentrum.perun.oidc.client.ExtSourcesManager;
-import org.mitre.util.JsonUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
@@ -30,6 +22,10 @@ import java.util.regex.Pattern;
  * @author Ondrej Velisek <ondrejvelisek@gmail.com>
  */
 public class PerunUtils {
+
+	public static final String EXTSOURCE_IDP = "cz.metacentrum.perun.core.impl.ExtSourceIdp";
+	public static final String EXTSOURCE_X509 = "cz.metacentrum.perun.core.impl.ExtSourceX509";
+	public static final String EXTSOURCE_NAME_LOCAL = "LOCAL";
 
 	private static final String PROPERTIES_FILE = "/etc/perun/perun-oidc-server.properties";
 
@@ -74,7 +70,7 @@ public class PerunUtils {
 		// If we have header Shib-Identity-Provider, then the user uses identity federation to authenticate
 		if (req.getHeader("Shib-Identity-Provider") != null && !req.getHeader("Shib-Identity-Provider").isEmpty()) {
 			extSourceName = (String) req.getHeader("Shib-Identity-Provider");
-			extSourceType = ExtSourcesManager.EXTSOURCE_IDP;
+			extSourceType = EXTSOURCE_IDP;
 			if (req.getHeader("loa") != null && ! req.getHeader("loa").isEmpty()) {
 				extSourceLoaString = req.getHeader("loa");
 			} else {
@@ -106,7 +102,7 @@ public class PerunUtils {
 				extLogin = req.getRemoteUser();
 			} else if (req.getAttribute("ENV_REMOTE_USER") != null && !((String) req.getAttribute("ENV_REMOTE_USER")).isEmpty()) {
 				extLogin = (String) req.getAttribute("ENV_REMOTE_USER");
-			} else if (extSourceName.equals(ExtSourcesManager.EXTSOURCE_NAME_LOCAL)) {
+			} else if (extSourceName.equals(EXTSOURCE_NAME_LOCAL)) {
 				/** LOCAL EXTSOURCE **/
 				// If ExtSource is LOCAL then generate REMOTE_USER name on the fly
 				extLogin = Long.toString(System.currentTimeMillis());
@@ -117,7 +113,7 @@ public class PerunUtils {
 		// Cert must be last since Apache asks for certificate everytime and fills cert properties even when Kerberos is in place.
 		else if (extLogin == null && req.getAttribute("SSL_CLIENT_VERIFY") != null && ((String) req.getAttribute("SSL_CLIENT_VERIFY")).equals("SUCCESS")){
 			extSourceName = (String) req.getAttribute("SSL_CLIENT_I_DN");
-			extSourceType = ExtSourcesManager.EXTSOURCE_X509;
+			extSourceType = EXTSOURCE_X509;
 			extSourceLoaString = (String) req.getAttribute("EXTSOURCELOA");
 			extLogin = (String) req.getAttribute("SSL_CLIENT_S_DN");
 
@@ -191,8 +187,6 @@ public class PerunUtils {
 					"extSourceLoa: "+extSourceLoa+", " +
 					"extSourceType: "+extSourceType);
 		}
-
-
 
 
 		return new PerunPrincipal(extSourceName, extLogin, extSourceLoa, extSourceType);

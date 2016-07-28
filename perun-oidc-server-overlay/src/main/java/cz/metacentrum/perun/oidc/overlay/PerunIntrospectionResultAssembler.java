@@ -34,11 +34,6 @@ import static com.google.common.collect.Maps.newLinkedHashMap;
  */
 public class PerunIntrospectionResultAssembler extends DefaultIntrospectionResultAssembler {
 
-	/**
-	 * Logger for this class
-	 */
-	private static final Logger logger = LoggerFactory.getLogger(PerunIntrospectionResultAssembler.class);
-
 	@Override
 	public Map<String, Object> assembleFrom(OAuth2AccessTokenEntity accessToken, UserInfo userInfo, Set<String> authScopes) {
 		Map<String, Object> result = super.assembleFrom(accessToken, userInfo, authScopes);

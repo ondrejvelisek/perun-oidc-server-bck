@@ -30,15 +30,7 @@
 	<security:http auto-config="false" use-expressions="true" entry-point-ref="http403EntryPoint" >
 		<security:intercept-url pattern="/authorize" access="hasRole('ROLE_USER')" />
 		<security:intercept-url pattern="/**" access="permitAll" />
-		<security:custom-filter ref="perunAuthenticationFilter" position="PRE_AUTH_FILTER" />
-		<security:custom-filter ref="authRequestFilter" after="SECURITY_CONTEXT_FILTER" />
-		<security:logout logout-url="/logout" />
-		<security:anonymous />
-		<security:expression-handler ref="oauthWebExpressionHandler" />
-		<security:headers>
-			<security:frame-options policy="DENY" />
-		</security:headers>
-		<security:csrf />
+		<security:custom-filter ref="perunAuthenticationFilter" before="PRE_AUTH_FILTER" />
 	</security:http>
 
 	<bean id="perunAuthenticationFilter"
@@ -58,12 +50,12 @@
 		<property name="preAuthenticatedUserDetailsService" ref="userDetailsService"/>
 	</bean>
 
-	<bean id="userDetailsService" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService"/>
+	<bean id="userDetailsService" class="cz.metacentrum.perun.oidc.overlay.PerunAuthenticationUserDetailsService"/>
 
 	<bean id="defaultUserInfoRepository" class="cz.metacentrum.perun.oidc.overlay.PerunUserInfoRepository" primary="true"/>
 
-<!--	<bean id="defaultOAuth2AuthorizationCodeService" class="cz.metacentrum.perun.oidc.overlay.PerunAuthorizationCodeService" primary="true" />
+	<bean id="defaultOAuth2AuthorizationCodeService" class="cz.metacentrum.perun.oidc.overlay.PerunAuthorizationCodeService" primary="true" />
 
-	<bean id="defaultIntrospectionResultAssembler" class="cz.metacentrum.perun.oidc.overlay.PerunIntrospectionResultAssembler" primary="true" />-->
+	<bean id="defaultIntrospectionResultAssembler" class="cz.metacentrum.perun.oidc.overlay.PerunIntrospectionResultAssembler" primary="true" />
 
 </beans>

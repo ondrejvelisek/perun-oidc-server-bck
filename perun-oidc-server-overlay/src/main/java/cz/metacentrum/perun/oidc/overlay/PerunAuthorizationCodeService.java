@@ -4,6 +4,7 @@ import org.mitre.oauth2.model.AuthenticationHolderEntity;
 import org.mitre.oauth2.model.AuthorizationCodeEntity;
 import org.mitre.oauth2.repository.AuthenticationHolderRepository;
 import org.mitre.oauth2.repository.AuthorizationCodeRepository;
+import org.mitre.oauth2.service.impl.DefaultOAuth2AuthorizationCodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +13,15 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Map;
 
 /**
  * @author Ondrej Velisek <ondrejvelisek@gmail.com>
  */
 public class PerunAuthorizationCodeService extends RandomValueAuthorizationCodeServices {
 
-	// Logger for this class
-	private static final Logger logger = LoggerFactory.getLogger(PerunAuthorizationCodeService.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultOAuth2AuthorizationCodeService.class);
 
 	@Autowired
 	private AuthorizationCodeRepository repository;
@@ -33,6 +31,7 @@ public class PerunAuthorizationCodeService extends RandomValueAuthorizationCodeS
 
 	private int authCodeExpirationSeconds = 60 * 5; // expire in 5 minutes by default
 
+
 	@Override
 	protected void store(String code, OAuth2Authentication authentication) {
 
@@ -41,7 +40,6 @@ public class PerunAuthorizationCodeService extends RandomValueAuthorizationCodeS
 		authHolder.setAuthentication(authentication);
 		PerunWebAuthenticationDetails details = (PerunWebAuthenticationDetails) authentication.getUserAuthentication().getDetails();
 		authHolder.setExtensions(details.getAdditionalInfo());
-
 		authHolder = authenticationHolderRepository.save(authHolder);
 
 		// set the auth code to expire
@@ -49,6 +47,7 @@ public class PerunAuthorizationCodeService extends RandomValueAuthorizationCodeS
 
 		AuthorizationCodeEntity entity = new AuthorizationCodeEntity(code, authHolder, expiration);
 		repository.save(entity);
+
 	}
 
 	@Override
@@ -66,6 +65,8 @@ public class PerunAuthorizationCodeService extends RandomValueAuthorizationCodeS
 
 		return auth;
 	}
+
+
 
 	/**
 	 * Find and remove all expired auth codes.
@@ -85,6 +86,20 @@ public class PerunAuthorizationCodeService extends RandomValueAuthorizationCodeS
 	}
 
 	/**
+	 * @return the repository
+	 */
+	public AuthorizationCodeRepository getRepository() {
+		return repository;
+	}
+
+	/**
+	 * @param repository the repository to set
+	 */
+	public void setRepository(AuthorizationCodeRepository repository) {
+		this.repository = repository;
+	}
+
+	/**
 	 * @return the authCodeExpirationSeconds
 	 */
 	public int getAuthCodeExpirationSeconds() {
@@ -97,6 +112,5 @@ public class PerunAuthorizationCodeService extends RandomValueAuthorizationCodeS
 	public void setAuthCodeExpirationSeconds(int authCodeExpirationSeconds) {
 		this.authCodeExpirationSeconds = authCodeExpirationSeconds;
 	}
-
 
 }

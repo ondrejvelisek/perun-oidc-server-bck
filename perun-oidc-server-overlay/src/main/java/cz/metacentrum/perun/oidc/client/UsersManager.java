@@ -23,27 +23,27 @@ public class UsersManager extends Manager {
         return manager;
     }
 
-    public User getUserById(Integer id) {
+    public PerunUser getUserById(Integer id) {
 
         try {
             Map<String, Object> params = new HashMap<>();
             params.put("id", id);
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(get("getUserById", params), User.class);
+            return mapper.readValue(get("getUserById", params), PerunUser.class);
         } catch (IOException e) {
             throw new IllegalStateException("IO Error while getting user from perun", e);
         }
 
     }
 
-    public User getUserByExtSourceNameAndExtLogin(String extSourceName, String extLogin) {
+    public PerunUser getUserByExtSourceNameAndExtLogin(String extSourceName, String extLogin) {
 
         try {
             Map<String, Object> params = new HashMap<>();
             params.put("extSourceName", extSourceName);
             params.put("extLogin", extLogin);
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(get("getUserByExtSourceNameAndExtLogin", params), User.class);
+            return mapper.readValue(get("getUserByExtSourceNameAndExtLogin", params), PerunUser.class);
         } catch (IOException e) {
             throw new IllegalStateException("IO Error while getting user from perun", e);
         }

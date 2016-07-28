@@ -3,7 +3,7 @@ package cz.metacentrum.perun.oidc.client;
 /**
  * @author Ondrej Velisek <ondrejvelisek@gmail.com>
  */
-public class User extends PerunBean {
+public class PerunUser extends PerunBean {
 
     private boolean serviceUser;
     private String middleName;
@@ -129,7 +129,7 @@ public class User extends PerunBean {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "PerunUser{" +
                 "serviceUser=" + serviceUser +
                 ", middleName='" + middleName + '\'' +
                 ", firstName='" + firstName + '\'' +
