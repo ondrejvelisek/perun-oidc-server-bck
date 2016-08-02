@@ -86,6 +86,7 @@
                     <path>/</path>
                     <port>8808</port>
                     <ajpPort>8809</ajpPort>
+                    <additionalClasspathDirs>/etc/perun/</additionalClasspathDirs>
                 </configuration>
             </plugin>
 
