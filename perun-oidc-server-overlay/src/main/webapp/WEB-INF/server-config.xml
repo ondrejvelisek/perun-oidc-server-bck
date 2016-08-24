@@ -30,7 +30,7 @@
     <bean id="configBean" class="org.mitre.openid.connect.config.ConfigurationPropertiesBean">
 
         <!-- This property sets the root URL of the server, known as the issuer -->
-        <property name="issuer" value="https://perun-dev.meta.zcu.cz/oidc/" />
+        <property name="issuer" value="https://perun.elixir-czech.cz/oidc/" />
 
         <!-- This property is a URL pointing to a logo image 24px high to be used in the top bar -->
         <property name="logoImageUrl" value="resources/images/perun_24px.png" />
