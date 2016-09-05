@@ -1,11 +1,15 @@
 package cz.metacentrum.perun.oidc.overlay;
 
+import com.google.gson.JsonObject;
+import cz.metacentrum.perun.oidc.client.OidcManager;
 import cz.metacentrum.perun.oidc.client.PerunUser;
 import cz.metacentrum.perun.oidc.client.UsersManager;
 import org.mitre.openid.connect.model.DefaultUserInfo;
 import org.mitre.openid.connect.model.UserInfo;
 import org.mitre.openid.connect.repository.UserInfoRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.util.Map;
 
 /**
  * @author Ondrej Velisek <ondrejvelisek@gmail.com>
@@ -21,14 +25,7 @@ public class PerunUserInfoRepository implements UserInfoRepository {
 		}
 
 		// TODO can be cached (performance)
-		PerunUser user = UsersManager.getInstance().getUserById(Integer.valueOf(s));
-
-		UserInfo ui = new DefaultUserInfo();
-		ui.setSub(String.valueOf(user.getId()));
-		ui.setName(user.getDisplayName());
-		ui.setGivenName(user.getFirstName());
-		ui.setMiddleName(user.getMiddleName());
-		ui.setFamilyName(user.getLastName());
+		UserInfo ui = OidcManager.getInstance().getSpecificUserinfo(Integer.valueOf(s));
 
 		return ui;
 	}
