@@ -28,6 +28,8 @@
         <jdbc:script location="classpath:/db/tables/hsql_database_tables.sql"/>
         <jdbc:script location="classpath:/db/tables/security-schema.sql"/>
         <jdbc:script location="classpath:/db/tables/loading_temp_tables.sql"/>
+        <jdbc:script location="classpath:/db/scopes.sql"/>
+        <jdbc:script location="classpath:/db/clients.sql"/>
     </jdbc:initialize-database>
 
 
